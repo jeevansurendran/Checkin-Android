@@ -423,6 +423,7 @@
                             android:id="@+id/container_as_chat_action"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_large"
                             android:transitionName="chatActions"
                             android:weightSum="3"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -434,7 +435,6 @@
                                 android:id="@+id/ll_call_waiter_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginTop="@dimen/spacing_large"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical"
@@ -481,7 +481,6 @@
                                 android:id="@+id/ll_table_cleaning_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/spacing_large"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -508,12 +507,10 @@
 
                             </LinearLayout>
 
-
                             <LinearLayout
                                 android:id="@+id/ll_refill_glass_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/spacing_large"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
                                 app:layout_constraintBottom_toBottomOf="parent"

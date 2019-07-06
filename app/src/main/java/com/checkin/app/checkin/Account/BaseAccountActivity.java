@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,10 +20,12 @@ import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.checkin.app.checkin.Account.AccountModel.ACCOUNT_TYPE;
+import com.checkin.app.checkin.AppDetails.AboutAppActivity;
 import com.checkin.app.checkin.Data.Resource;
 import com.checkin.app.checkin.Manager.ManagerWorkActivity;
 import com.checkin.app.checkin.Misc.BaseActivity;
@@ -110,6 +113,16 @@ public abstract class BaseAccountActivity extends BaseActivity {
         if (!Utils.logoutFromApp(getApplicationContext()))
             Utils.toast(getApplicationContext(), "Unable to logout. Manually remove account from settings.");
     }
+
+    /*@Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_about_app:
+                startActivity(new Intent(this, AboutAppActivity.class));
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }*/
 
     @IdRes
     protected abstract int getDrawerRootId();

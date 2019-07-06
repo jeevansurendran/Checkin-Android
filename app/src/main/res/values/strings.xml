@@ -16,6 +16,7 @@
     <string name="action_search">Search</string>
     <string name="action_finish">Finish</string>
     <string name="action_filter">Filter Items</string>
+    <string name="label_about">About</string>
 
     <!--for bottomnav bar-->
 

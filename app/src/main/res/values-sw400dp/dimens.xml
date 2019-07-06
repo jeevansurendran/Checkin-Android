@@ -86,7 +86,7 @@
     <dimen name="height_menu_customization_header">72dp</dimen>
     <dimen name="height_menu_customization_footer">62dp</dimen>
     <dimen name="height_menu_group_collapsed">100dp</dimen>
-    <dimen name="height_menu_group_expanded">350dp</dimen>
+    <dimen name="height_menu_group_expanded">400dp</dimen>
     <dimen name="height_menu_item">82dp</dimen>
     <dimen name="height_menu_cart_item">105dp</dimen>
 

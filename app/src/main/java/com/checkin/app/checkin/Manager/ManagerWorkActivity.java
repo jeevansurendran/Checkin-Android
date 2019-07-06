@@ -3,6 +3,7 @@ package com.checkin.app.checkin.Manager;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.checkin.app.checkin.Account.AccountModel;
 import com.checkin.app.checkin.Account.BaseAccountActivity;
+import com.checkin.app.checkin.AppDetails.AboutAppActivity;
 import com.checkin.app.checkin.Data.Resource;
 import com.checkin.app.checkin.Manager.Adapter.ManagerInactiveTableAdapter;
 import com.checkin.app.checkin.Manager.Fragment.ManagerInvoiceFragment;
@@ -36,13 +38,14 @@ import com.checkin.app.checkin.Shop.ShopPreferences;
 import com.checkin.app.checkin.Utility.DynamicSwipableViewPager;
 import com.checkin.app.checkin.Utility.Utils;
 import com.checkin.app.checkin.session.model.RestaurantTableModel;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ManagerWorkActivity extends BaseAccountActivity implements ManagerTablesActivateFragment.LiveOrdersInteraction, ManagerInactiveTableAdapter.ManagerTableInitiate {
+public class ManagerWorkActivity extends BaseAccountActivity implements ManagerTablesActivateFragment.LiveOrdersInteraction, ManagerInactiveTableAdapter.ManagerTableInitiate, NavigationView.OnNavigationItemSelectedListener {
     public static final String KEY_OPEN_LAST_TABLES = "manager.show_last_tables";
     public static final String KEY_RESTAURANT_PK = "manager.restaurant_pk";
     public static final String KEY_SESSION_BUNDLE = "manager.session_bundle";
@@ -239,6 +242,16 @@ public class ManagerWorkActivity extends BaseAccountActivity implements ManagerT
             managerTablesParentContainer.setVisibility(View.GONE);
         else
             super.onBackPressed();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_about_app:
+                startActivity(new Intent(this, AboutAppActivity.class));
+                return true;
+        }
+        return false;
     }
 
     static class ManagerFragmentAdapter extends BaseFragmentAdapterBottomNav {

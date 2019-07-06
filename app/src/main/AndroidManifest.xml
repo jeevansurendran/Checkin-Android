@@ -80,6 +80,9 @@
         </activity>
 
         <activity android:name=".Misc.UpdateAppActivity" />
+        <activity android:name=".AppDetails.AboutAppActivity"
+            android:theme="@style/AppThemeWhiteActionBar"
+            android:label="Checkin"/>
 
         <service
             android:name=".Auth.AuthenticatorService"

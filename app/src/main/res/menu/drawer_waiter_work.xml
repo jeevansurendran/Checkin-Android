@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/nav_about_app"
+        android:title="@string/label_about"
+        android:icon="@drawable/ic_veg"/>
+
+    <item
         android:id="@+id/nav_waiter_orders"
         android:icon="@drawable/ic_orders_taken"
         android:title="@string/menu_waiter_orders_taken"
