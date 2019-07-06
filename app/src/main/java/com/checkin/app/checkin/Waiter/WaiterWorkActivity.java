@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -62,7 +61,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class WaiterWorkActivity extends BaseAccountActivity implements
-        WaiterTableFragment.WaiterTableInteraction, WaiterEndDrawerTableAdapter.OnTableClickListener, NavigationView.OnNavigationItemSelectedListener{
+        WaiterTableFragment.WaiterTableInteraction, WaiterEndDrawerTableAdapter.OnTableClickListener{
     public static final String KEY_SHOP_PK = "waiter.shop_pk";
     public static final String KEY_SESSION_PK = "waiter.session_pk";
     public static final String ACTION_NEW_TABLE = "waiter.new_table";
@@ -420,16 +419,6 @@ public class WaiterWorkActivity extends BaseAccountActivity implements
     @Override
     protected int getNavMenu() {
         return R.menu.drawer_waiter_work;
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.nav_about_app:
-                startActivity(new Intent(this, AboutAppActivity.class));
-                return true;
-        }
-        return false;
     }
 
     @Override

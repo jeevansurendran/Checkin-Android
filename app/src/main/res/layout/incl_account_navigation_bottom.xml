@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/btn_about_app"
+        style="@style/GreyTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_about"
+        android:gravity="center"
+        android:padding="@dimen/spacing_normal"
+        android:layout_marginBottom="@dimen/spacing_small"
+        app:layout_constraintBottom_toTopOf="@id/btn_logout" />
+
     <Button
         android:id="@+id/btn_logout"
+        style="@style/GreyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/pinkish_grey"
-        style="@style/GreyTextStyle"
-        android:text="@string/action_logout"/>
+        android:text="@string/action_logout" />
+
+    </LinearLayout>
 </merge>

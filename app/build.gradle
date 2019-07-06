@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'io.objectbox'
@@ -176,6 +177,9 @@ dependencies {
     implementation('com.paytm:pgplussdk:1.3.3') {
         transitive = true
     }
+
+    //Show License details
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 }
 
 repositories {

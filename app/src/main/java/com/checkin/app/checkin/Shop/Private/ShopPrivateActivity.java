@@ -2,12 +2,10 @@ package com.checkin.app.checkin.Shop.Private;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.checkin.app.checkin.Account.AccountModel;
 import com.checkin.app.checkin.Account.BaseAccountActivity;
-import com.checkin.app.checkin.AppDetails.AboutAppActivity;
 import com.checkin.app.checkin.Data.Resource;
 import com.checkin.app.checkin.Inventory.InventoryActivity;
 import com.checkin.app.checkin.Misc.BaseFragmentAdapterBottomNav;
@@ -16,10 +14,8 @@ import com.checkin.app.checkin.R;
 import com.checkin.app.checkin.Shop.Private.Insight.ShopInsightActivity;
 import com.checkin.app.checkin.Utility.DynamicSwipableViewPager;
 import com.checkin.app.checkin.Utility.Utils;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
@@ -33,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShopPrivateActivity extends BaseAccountActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ShopPrivateActivity extends BaseAccountActivity {
 
     public static final String KEY_SHOP_PK = "shop_private.pk";
     @BindView(R.id.sr_shop_private)
@@ -146,16 +142,6 @@ public class ShopPrivateActivity extends BaseAccountActivity implements Navigati
     protected void updateScreen() {
         getAccountViewModel().updateResults();
         mViewModel.updateResults();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.nav_about_app:
-                startActivity(new Intent(this, AboutAppActivity.class));
-                return true;
-        }
-        return false;
     }
 
     private class ShopFragmentAdapter extends BaseFragmentAdapterBottomNav {
