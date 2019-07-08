@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:id="@+id/root_session"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,54 +13,30 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <LinearLayout
             android:id="@+id/appbar_active_session"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/card_elevation"
-            android:fitsSystemWindows="true"
-            android:theme="@style/appbar_main">
+            android:layout_margin="@dimen/spacing_small">
 
-            <androidx.appcompat.widget.Toolbar
+            <ImageView
+                android:id="@+id/im_as_back"
+                android:layout_width="@dimen/size_tiny_icon"
+                android:layout_height="@dimen/size_small_icon"
+                android:src="@drawable/ic_back_grey" />
+
+            <TextView
+                android:id="@+id/tv_session_live_at"
+                style="@style/GreyHeadingStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:background="@color/primary_red"
-                app:popupTheme="@style/PopupOverlay">
+                android:layout_gravity="center|start"
+                android:paddingStart="@dimen/spacing_small"
+                android:paddingEnd="@dimen/spacing_small"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Live at TTB" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/tv_session_live_at"
-                        style="@style/WhiteTextStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|start"
-                        android:layout_weight="0.3"
-                        android:text="@string/active_session"
-                        android:textSize="@dimen/font_large"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_active_session_bill"
-                        style="@style/WhiteTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/spacing_normal"
-                        android:background="@drawable/bordered_rectangle_white"
-                        android:drawableEnd="@drawable/ic_cart_white"
-                        android:drawablePadding="@dimen/spacing_extra_small"
-                        android:gravity="center"
-                        android:padding="@dimen/spacing_extra_small"
-                        android:textSize="@dimen/font_large"
-                        tools:text="$ 420" />
-
-                </LinearLayout>
-            </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.AppBarLayout>
+        </LinearLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/sr_active_session"
@@ -80,7 +55,7 @@
                     app:layout_constraintBottom_toTopOf="@id/container_second"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_weight="0.45">
+                    app:layout_constraintVertical_weight="0.4">
 
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -89,7 +64,6 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/spacing_small"
-                        android:layout_marginTop="@dimen/spacing_normal"
                         android:layout_weight="1" />
 
 
@@ -340,7 +314,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/container_bottom_total_price"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/container_second"
@@ -376,8 +350,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
-                            android:layout_marginTop="@dimen/spacing_normal"
-                            android:layout_gravity="center" />
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/spacing_normal" />
 
                     </LinearLayout>
 
@@ -392,7 +366,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/container_dish"
-                        app:layout_constraintVertical_weight="0.5">
+                        app:layout_constraintVertical_weight="0.45">
 
 
                         <TextView
@@ -423,12 +397,11 @@
                             android:id="@+id/container_as_chat_action"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_large"
                             android:transitionName="chatActions"
                             android:weightSum="3"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toBottomOf="@+id/tv_interact_with_us">
 
 
                             <LinearLayout
@@ -460,8 +433,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:ellipsize="end"
-                                    android:maxLines="1"
                                     android:gravity="center|top"
+                                    android:maxLines="1"
                                     android:text="unassigned"
                                     android:textSize="@dimen/font_tiny"
                                     tools:text="waiter name" />
@@ -521,9 +494,9 @@
                                 <ImageView
                                     android:layout_width="@dimen/width_glass"
                                     android:layout_height="@dimen/button_height_normal"
+                                    android:layout_gravity="center"
                                     android:layout_marginBottom="@dimen/spacing_small"
                                     android:scaleType="fitXY"
-                                    android:layout_gravity="center"
                                     android:src="@drawable/ic_action_refill_water" />
 
                                 <TextView
@@ -541,6 +514,44 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container_bottom_total_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/aqua_blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/container_session_trending_items_actions">
+
+                    <TextView
+                        style="@style/WhiteTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_small"
+                        android:layout_marginTop="@dimen/spacing_extra_small"
+                        android:layout_marginBottom="@dimen/spacing_extra_small"
+                        android:drawableStart="@drawable/ic_bill"
+                        android:drawablePadding="@dimen/spacing_small"
+                        android:gravity="center"
+                        android:text="Settle Bill"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_active_session_bill"
+                        style="@style/WhiteTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_small"
+                        android:gravity="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="$ 42090" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

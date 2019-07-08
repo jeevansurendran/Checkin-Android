@@ -27,5 +27,6 @@
         android:layout_marginTop="@dimen/spacing_tiny"
         android:textColor="@drawable/selector_tab_color"
         android:textSize="@dimen/font_small"
+        android:fontFamily="@font/josefinsans_regular"
         tools:text="Option" />
 </LinearLayout>

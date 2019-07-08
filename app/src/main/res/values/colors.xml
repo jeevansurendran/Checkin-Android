@@ -14,6 +14,7 @@
     <color name="black">#000000</color>
     <color name="primary_red">#af1014</color>
     <color name="apple_green">#7ed321</color>
+    <color name="aqua_blue">#0295aa</color>
 
     <!--Grey variants-->
     <color name="brownish_grey">#6d6d6d</color>

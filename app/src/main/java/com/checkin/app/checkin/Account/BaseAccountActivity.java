@@ -51,7 +51,6 @@ public abstract class BaseAccountActivity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavAccount;
     private Button btnLogout;
-    private TextView btnAboutUs;
 
     private AccountViewModel mViewModel;
     private AccountAdapter mAccountAdapter;
@@ -62,7 +61,6 @@ public abstract class BaseAccountActivity extends BaseActivity {
         mDrawerLayout = findViewById(getDrawerRootId());
         mNavAccount = findViewById(R.id.nav_account);
         btnLogout = findViewById(R.id.btn_logout);
-        btnAboutUs = findViewById(R.id.btn_about_app);
         btnLogout.setOnClickListener(this::onLogoutClick);
 
         mAccountAdapter = new AccountAdapter(getApplicationContext(), R.layout.simple_spinner_item, new ArrayList<>());
@@ -72,10 +70,6 @@ public abstract class BaseAccountActivity extends BaseActivity {
 
         mNavAccount.inflateMenu(getNavMenu());
         mNavAccount.setItemIconTintList(null);
-
-        btnAboutUs.setOnClickListener(v -> {
-            startActivity(new Intent(this, AboutAppActivity.class));
-        });
     }
 
     private void setupHeader() {

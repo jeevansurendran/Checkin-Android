@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -308,7 +309,8 @@ public class ActiveSessionActivity extends BaseActivity implements
         mSessionMembersAdapter.setUsers(data.getCustomers());
         tvBill.setText(data.formatBill(this));
         tvBill.setEnabled(true);
-        tvSessionLiveAt.setText(data.getRestaurant().getDisplayName());
+        tvSessionLiveAt.setText(Html.fromHtml(data.getRestaurant().formatRestaurantName()), TextView.BufferType.SPANNABLE);
+
         if (data.getHost() != null) {
             tvWaiterName.setText(data.getHost().getDisplayName());
             Utils.loadImageOrDefault(imWaiterPic, data.getHost().getDisplayPic(), R.drawable.ic_waiter);
@@ -361,6 +363,11 @@ public class ActiveSessionActivity extends BaseActivity implements
         mViewModel.addNewOrder(sessionOrderedItem);
     }
 
+    @OnClick(R.id.im_as_back)
+    public void onBackClick(){
+        onBackPressed();
+    }
+
     @OnClick(R.id.btn_active_session_menu)
     public void onListMenu() {
         if (Utils.isNetworkConnected(this)) {
@@ -385,7 +392,7 @@ public class ActiveSessionActivity extends BaseActivity implements
         }
     }
 
-    @OnClick(R.id.tv_active_session_bill)
+    @OnClick({R.id.tv_active_session_bill, R.id.container_bottom_total_price})
     public void openBillDetails() {
         if (Utils.isNetworkConnected(this)) {
             startActivity(new Intent(

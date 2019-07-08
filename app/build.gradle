@@ -180,6 +180,7 @@ dependencies {
 
     //Show License details
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
+    implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
 }
 
 repositories {
