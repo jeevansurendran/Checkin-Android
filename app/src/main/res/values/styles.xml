@@ -17,6 +17,7 @@
 
     <style name="appbar_main" parent="AppTheme.AppBarOverlay">
         <item name="android:homeAsUpIndicator">@drawable/ic_back_grey</item>
+        <item name="elevation">@dimen/spacing_elevation_fix_extreme_tiny</item>
     </style>
 
     <style name="SessionTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -446,6 +447,10 @@
         <item name="colorControlActivated">@color/apple_green</item>
         <item name="colorSwitchThumbNormal">@color/primary_red</item>
         <item name="android:colorForeground">@color/pinkish_grey</item>
+    </style>
+
+    <style name="MaterialTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="actionBarStyle">@style/AppTheme.AppBarOverlay</item>
     </style>
 
 </resources>

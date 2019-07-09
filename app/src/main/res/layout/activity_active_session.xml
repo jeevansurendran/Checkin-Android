@@ -21,8 +21,10 @@
 
             <ImageView
                 android:id="@+id/im_as_back"
-                android:layout_width="@dimen/size_tiny_icon"
-                android:layout_height="@dimen/size_small_icon"
+                android:layout_width="@dimen/size_normal_icon"
+                android:layout_height="@dimen/size_normal_icon"
+                android:contentDescription="@null"
+                android:padding="@dimen/spacing_extra_small"
                 android:src="@drawable/ic_back_grey" />
 
             <TextView

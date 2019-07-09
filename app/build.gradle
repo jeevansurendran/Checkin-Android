@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'io.objectbox'
@@ -84,6 +83,9 @@ android {
     lintOptions {
         abortOnError false
         disable 'MissingTranslation', 'ExtraTranslation'
+    }
+    packagingOptions {
+        pickFirst  'META-INF/*'
     }
 }
 
@@ -179,8 +181,14 @@ dependencies {
     }
 
     //Show License details
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
-    implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
+    implementation "com.mikepenz:aboutlibraries:7.0.1"
+
+    implementation "com.google.android.material:material:1.0.0"
+
+    //Webview
+    implementation 'com.android.support:customtabs:28.8.0'
+
+
 }
 
 repositories {

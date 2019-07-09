@@ -91,9 +91,7 @@
             android:theme="@style/SessionChatTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".session.activesession.ActiveSessionInvoiceActivity"
-            android:label="Invoice"
-            android:theme="@style/AppThemeWhiteActionBar" />
+            android:name=".session.activesession.ActiveSessionInvoiceActivity" />
         <activity
             android:name=".User.bills.SuccessfulTransactionActivity"
             android:theme="@style/Theme.Design.NoActionBar" />

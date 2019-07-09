@@ -29,8 +29,10 @@
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabs_shop_private"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_bottom_tab"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
+                    android:paddingBottom="@dimen/spacing_elevation_fix_extreme_tiny"
+                    android:paddingTop="@dimen/spacing_elevation_fix_extreme_tiny"
                     android:background="@drawable/background_tab_bottom_shadowed"
                     app:tabGravity="fill"
                     app:tabIndicatorColor="@android:color/transparent"
@@ -39,10 +41,11 @@
 
                 <LinearLayout
                     android:id="@+id/btn_shop_private_insight"
-                    style="@style/LogoImageStyle"
+                    android:layout_width="@dimen/business_icon"
+                    android:layout_height="@dimen/business_icon"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:elevation="2dp"
+                    android:elevation="@dimen/spacing_elevation_fix_extreme_tiny"
                     android:layout_marginTop="@dimen/spacing_tiny"
                     android:layout_marginBottom="@dimen/spacing_small"
                     android:background="@drawable/shape_oval_pinkish_grey_filled"
@@ -61,7 +64,7 @@
                         android:gravity="center"
                         android:layout_gravity="center"
                         android:textColor="@color/aqua_blue"
-                        android:textSize="@dimen/font_extra_tiny" />
+                        android:textSize="@dimen/business_font_small" />
 
                 </LinearLayout>
 
