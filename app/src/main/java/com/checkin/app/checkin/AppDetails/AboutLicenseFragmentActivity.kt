@@ -81,21 +81,6 @@ class AboutLicenseFragmentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_license_app)
 
-        //Remove line to test RTL support
-        //window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
-
-        // Handle Toolbar
-
-
-        /*
-        //NOTE: This is how you can modify a specific library definition during runtime
-        HashMap<String, HashMap<String, String>> libsModification = new HashMap<String, HashMap<String, String>>();
-        HashMap<String, String> modifyAboutLibraries = new HashMap<String, String>();
-        modifyAboutLibraries.put("name", "_AboutLibraries");
-        libsModification.put("aboutlibraries", modifyAboutLibraries);
-        .withLibraryModification(libsModification);
-        */
-
         val fragment = LibsBuilder()
                 .withVersionShown(false)
                 .withLicenseShown(true)
