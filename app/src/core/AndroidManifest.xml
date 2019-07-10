@@ -113,13 +113,11 @@
             android:label="Manager"
             android:theme="@style/AppTheme" />
         <activity android:name=".Manager.ManagerSessionInvoiceActivity"
-            android:label="Invoice"
-            android:theme="@style/AppThemeWhiteActionBar"/>
+            android:label="Invoice" />
         <activity android:name=".Shop.Private.ShopPrivateActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".session.activesession.ActiveSessionPaymentOptionsActivity"
-            android:label="Payment Mode"
-            android:theme="@style/AppThemeWhiteActionBar" />
+            android:label="Payment Mode" />
         <activity
             android:name=".Shop.Private.Insight.ShopInsightActivity"
             android:label="Insight"

@@ -27,10 +27,10 @@ public class ActiveSessionPaymentOptionsActivity extends BaseActivity {
         setContentView(R.layout.activity_active_session_payment_options);
         ButterKnife.bind(this);
 
-        if (getSupportActionBar() != null) {
+        /*if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_grey);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        }*/
 
         tvAmount.setText(getIntent().getStringExtra(KEY_SESSION_AMOUNT));
     }
@@ -59,10 +59,14 @@ public class ActiveSessionPaymentOptionsActivity extends BaseActivity {
 //        finish();
     }
 
+    @OnClick(R.id.im_session_payment_options_back)
+    public void backClick(){
+        onBackPressed();
+    }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
+    public void onBackPressed() {
+        super.onBackPressed();
     }
+
 }

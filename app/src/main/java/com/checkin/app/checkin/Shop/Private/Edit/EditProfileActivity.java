@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class EditProfileActivity extends AppCompatActivity implements EditAspectFragment.AspectFragmentInteraction, EditBasicFragment.BasicFragmentInteraction {
     public static final String KEY_SHOP_PK = "shop_edit.pk";
@@ -66,6 +67,16 @@ public class EditProfileActivity extends AppCompatActivity implements EditAspect
                 Utils.toast(this, "Error in updating data.");
             }
         });
+    }
+
+    @OnClick(R.id.im_user_edit_profile_back)
+    public void backClick(){
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
