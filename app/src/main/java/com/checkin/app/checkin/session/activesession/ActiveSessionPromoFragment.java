@@ -94,4 +94,5 @@ public class ActiveSessionPromoFragment extends BaseFragment implements ActiveSe
     public void onPromoApply(PromoDetailModel promoModel) {
         mViewModel.availPromoCode(promoModel.getCode());
     }
+    
 }

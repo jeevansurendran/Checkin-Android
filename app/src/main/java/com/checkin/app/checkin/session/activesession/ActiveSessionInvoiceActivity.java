@@ -46,10 +46,10 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 import static com.checkin.app.checkin.Shop.ShopModel.PAYMENT_MODE.PAYTM;
-import static com.checkin.app.checkin.session.activesession.ActiveSessionPaymentOptionsActivity.KEY_PAYMENT_MODE_RESULT;
-import static com.checkin.app.checkin.session.activesession.ActiveSessionPaymentOptionsActivity.KEY_SESSION_AMOUNT;
+import static com.checkin.app.checkin.session.activesession.ActiveSessionPaymentOptionsFragment.KEY_PAYMENT_MODE_RESULT;
+import static com.checkin.app.checkin.session.activesession.ActiveSessionPaymentOptionsFragment.KEY_SESSION_AMOUNT;
 
-public class ActiveSessionInvoiceActivity extends BaseActivity {
+public class ActiveSessionInvoiceActivity extends BaseActivity implements ActiveSessionPaymentOptionsFragment.OnSelectPaymentMode {
     public static final String KEY_SESSION_REQUESTED_CHECKOUT = "invoice.session.requested_checkout";
     private static final int REQUEST_PAYMENT_MODE = 141;
 
@@ -93,6 +93,7 @@ public class ActiveSessionInvoiceActivity extends BaseActivity {
     private SharedPreferences mPrefs;
     private PaytmPayment mPaymentPayTm;
     private ActiveSessionPromoFragment mPromoFragment;
+    private ActiveSessionPaymentOptionsFragment mPaymentFragment;
 
     private ShopModel.PAYMENT_MODE selectedMode;
 
@@ -152,6 +153,7 @@ public class ActiveSessionInvoiceActivity extends BaseActivity {
         mBillHolder = new BillHolder(findViewById(android.R.id.content));
 
         mPromoFragment = ActiveSessionPromoFragment.newInstance();
+        mPaymentFragment = ActiveSessionPaymentOptionsFragment.newInstance(this);
     }
 
     private void setPaymentModeUpdates() {
@@ -428,9 +430,18 @@ public class ActiveSessionInvoiceActivity extends BaseActivity {
 
     @OnClick(R.id.container_as_payment_mode_change)
     public void onPaymentModeClick() {
-        Intent intent = new Intent(this, ActiveSessionPaymentOptionsActivity.class);
-        intent.putExtra(KEY_SESSION_AMOUNT, tvInvoiceTotal.getText().toString());
-        startActivityForResult(intent, REQUEST_PAYMENT_MODE);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_SESSION_AMOUNT, tvInvoiceTotal.getText().toString());
+        mPaymentFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_promo, mPaymentFragment)
+                .addToBackStack(null)
+                .commit();
+
+//        Intent intent = new Intent(this, ActiveSessionPaymentOptionsFragment.class);
+//        intent.putExtra(KEY_SESSION_AMOUNT, tvInvoiceTotal.getText().toString());
+//        startActivityForResult(intent, REQUEST_PAYMENT_MODE);
     }
 
     @OnClick(R.id.im_session_view_invoice_back)
@@ -503,5 +514,18 @@ public class ActiveSessionInvoiceActivity extends BaseActivity {
     @Override
     protected void updateScreen() {
         mViewModel.updateResults();
+    }
+
+    @Override
+    public void paymentSelect(ShopModel.PAYMENT_MODE paymentMode) {
+        if(paymentMode == null)
+            return;
+        selectedMode = paymentMode;
+        mPrefs.edit()
+                .putString(Constants.SP_LAST_USED_PAYMENT_MODE, selectedMode.tag)
+                .apply();
+
+        setPaymentModeUpdates();
+        tvPaymentMode.setCompoundDrawablesWithIntrinsicBounds(ShopModel.getPaymentModeIcon(selectedMode), 0, 0, 0);
     }
 }
