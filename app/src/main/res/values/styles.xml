@@ -449,8 +449,4 @@
         <item name="android:colorForeground">@color/pinkish_grey</item>
     </style>
 
-    <style name="MaterialTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="actionBarStyle">@style/AppTheme.AppBarOverlay</item>
-    </style>
-
 </resources>

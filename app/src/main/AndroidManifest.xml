@@ -81,9 +81,6 @@
 
         <activity android:name=".Misc.UpdateAppActivity" />
 
-        <activity android:name=".AppDetails.AboutLicenseFragmentActivity"
-            android:theme="@style/MaterialTheme"/>
-
         <service
             android:name=".Auth.AuthenticatorService"
             android:enabled="true"
