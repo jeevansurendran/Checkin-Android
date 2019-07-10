@@ -1,9 +1,11 @@
 package com.checkin.app.checkin.Menu.Model;
 
+import androidx.annotation.NonNull;
+
 import com.checkin.app.checkin.Data.AppDatabase;
 import com.checkin.app.checkin.Data.Converters;
 import com.checkin.app.checkin.Inventory.Adapter.InventoryItemAdapter;
-import com.checkin.app.checkin.Menu.Adapter.MenuItemAdapter;
+import com.checkin.app.checkin.Menu.UserMenu.Adapter.MenuItemAdapter;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,10 +13,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import io.objectbox.annotation.Backlink;
 import io.objectbox.annotation.Convert;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
@@ -69,7 +70,11 @@ public class MenuItemModel implements Serializable {
 
     @JsonIgnore
     @Transient
-    private MenuItemAdapter.ItemViewHolder holder;
+    private com.checkin.app.checkin.Menu.ShopMenu.Adapter.MenuItemAdapter.ItemViewHolder holder;
+
+    @JsonIgnore
+    @Transient
+    private MenuItemAdapter.ItemViewHolder asItemholder;
 
     @JsonIgnore
     @Transient
@@ -194,7 +199,8 @@ public class MenuItemModel implements Serializable {
     public void setAvailableMeals(String[] availableMeals) {
         List<AVAILABLE_MEAL> result = new ArrayList<>();
         for (String meal : availableMeals) {
-            result.add(AVAILABLE_MEAL.getByTag(meal));
+            AVAILABLE_MEAL availableMeal = AVAILABLE_MEAL.getByTag(meal);
+            result.add(availableMeal);
         }
         this.availableMeals = result;
     }
@@ -212,13 +218,22 @@ public class MenuItemModel implements Serializable {
         return new OrderedItemModel(this, quantity, type);
     }
 
-    public MenuItemAdapter.ItemViewHolder getItemHolder() {
+    public com.checkin.app.checkin.Menu.ShopMenu.Adapter.MenuItemAdapter.ItemViewHolder getItemHolder() {
         return holder;
     }
 
+    public MenuItemAdapter.ItemViewHolder getASItemHolder() {
+        return asItemholder;
+    }
+
     @JsonIgnore
-    public void setItemHolder(MenuItemAdapter.ItemViewHolder holder) {
+    public void setItemHolder(com.checkin.app.checkin.Menu.ShopMenu.Adapter.MenuItemAdapter.ItemViewHolder holder) {
         this.holder = holder;
+    }
+
+    @JsonIgnore
+    public void setActiveSessionItemHolder(MenuItemAdapter.ItemViewHolder holder) {
+        this.asItemholder = holder;
     }
 
     @Override

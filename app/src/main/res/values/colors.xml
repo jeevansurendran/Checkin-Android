@@ -5,6 +5,7 @@
     <color name="transparent">#00000000</color>
     <color name="dark_back_filter">#ab000000</color>
     <color name="white_two">#f3f3f3</color>
+    <color name="white_one">#f2f2f2</color>
     <color name="order_status_bad">@color/primary_red</color>
     <color name="order_status_good">@color/apple_green</color>
     <color name="ic_launcher_background">#AF1014</color>
@@ -15,6 +16,7 @@
     <color name="primary_red">#af1014</color>
     <color name="apple_green">#7ed321</color>
     <color name="aqua_blue">#0295aa</color>
+    <color name="blue">#6485CC</color>
 
     <!--Grey variants-->
     <color name="brownish_grey">#6d6d6d</color>
@@ -29,4 +31,7 @@
     <color name="translucent_black">#aa000000</color>
     <color name="translucent_half_black">#80000000</color>
     <color name="translucent_brownish_grey">#806d6d6d</color>
+
+    <color name="shimmer_background">#dddddd</color>
+    <color name="white_alpha">#CCFFFFFF</color>
 </resources>

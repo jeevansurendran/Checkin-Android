@@ -27,6 +27,7 @@
             android:background="@drawable/background_menu_customization"
             android:clipToPadding="false"
             android:fillViewport="true"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/guideline_menu_customization_below"
             app:layout_constraintTop_toBottomOf="@id/guideline_menu_customization_above">
 

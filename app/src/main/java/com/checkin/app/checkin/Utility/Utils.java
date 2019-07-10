@@ -9,8 +9,14 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -33,6 +39,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -101,8 +109,16 @@ public final class Utils {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
+    public static float dpToPx(float dp) {
+        return (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
     public static int pxToDp(int px) {
         return (int) (px / Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    public static float pxToDp(float px) {
+        return (px / Resources.getSystem().getDisplayMetrics().density);
     }
 
     public static void setTabsFont(TabLayout tabLayout, Typeface tf) {
@@ -386,8 +402,11 @@ public final class Utils {
 
     public static void loadImageOrDefault(ImageView imageView, String url, @DrawableRes int defaultDrawable) {
         if (url != null) {
+//            ShimmerDrawable shimmerDrawable = new ShimmerDrawable();
+//            shimmerDrawable.setShimmer(new Shimmer.AlphaHighlightBuilder().build());
             GlideApp.with(imageView.getContext())
                     .load(url)
+//                    .placeholder(shimmerDrawable)
                     .into(imageView);
         } else if (defaultDrawable != 0) {
             imageView.setImageResource(defaultDrawable);
@@ -798,5 +817,58 @@ public final class Utils {
         params.height = (displayMetrics.heightPixels) / 2;
 
         view.setLayoutParams(params);
+    }
+
+    @SuppressLint("ResourceAsColor")
+    public static Bitmap blurImage(ImageView imageView, Bitmap src) {
+        // create new bitmap, which will be painted and becomes result image
+        Bitmap bmOut = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
+        Log.e("width===", src.getWidth() + "    " + src.getHeight() + "===");
+        // setup canvas for painting
+        Canvas canvas = new Canvas(bmOut);
+        // setup default color
+//        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        // create a blur paint for capturing alpha
+        Paint ptBlur = new Paint();
+        ptBlur.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
+        ptBlur.setMaskFilter(new BlurMaskFilter(80, BlurMaskFilter.Blur.OUTER));
+        int[] offsetXY = new int[2];
+        // capture alpha into a bitmap
+//        Bitmap bmAlpha = src.extractAlpha(ptBlur, offsetXY);
+        // create a color paint
+        Paint ptAlphaColor = new Paint();
+        ptAlphaColor.setColor(R.color.apple_green);
+        canvas.drawBitmap(src, 100, 50, ptBlur);
+        // paint color for captured alpha region (bitmap)
+//        canvas.drawBitmap(bmAlpha, offsetXY[0], offsetXY[1], ptAlphaColor);
+        // free memory
+//        bmAlpha.recycle();
+
+        // paint the image source
+//        canvas.drawBitmap(src, 40, 10, ptAlphaColor);
+        imageView.draw(canvas);
+        imageView.setImageBitmap(bmOut);
+        // return out final image
+        return bmOut;
+    }
+
+    public static Bitmap getBitmapFromView(View view) {
+        //Create a Bitmap with the same dimensions as the View
+        Bitmap image = Bitmap.createBitmap(view.getMeasuredWidth(),
+                view.getMeasuredHeight(),
+                Bitmap.Config.ARGB_4444); //reduce quality
+        //Draw the view inside the Bitmap
+        Canvas canvas = new Canvas(image);
+        view.draw(canvas);
+
+        //Make it frosty
+        Paint paint = new Paint();
+        paint.setXfermode(
+                new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        ColorFilter filter =
+           new LightingColorFilter(0xFF7F7F7F, 0x00000000); // darken
+        paint.setColorFilter(filter);
+        canvas.drawBitmap(image, 0, 0, paint);
+        return image;
     }
 }
