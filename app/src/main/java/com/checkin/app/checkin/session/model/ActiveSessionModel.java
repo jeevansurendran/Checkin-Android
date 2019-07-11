@@ -71,7 +71,7 @@ public class ActiveSessionModel {
     }
 
     public void addCustomer(SessionCustomerModel customerModel) {
-        customers.add(customerModel);
+        customers.add(0,customerModel);
     }
 
     public BriefModel getRestaurant() {
