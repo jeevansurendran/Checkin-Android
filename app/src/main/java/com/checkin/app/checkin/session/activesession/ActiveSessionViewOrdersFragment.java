@@ -2,6 +2,7 @@ package com.checkin.app.checkin.session.activesession;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ActiveSessionViewOrdersFragment extends BaseFragment implements ActiveSessionOrdersAdapter.SessionOrdersInteraction {
+    @BindView(R.id.appbar_active_session_view_order)
+    ViewGroup appBar;
     @BindView(R.id.rv_active_session_orders)
     RecyclerView rvOrders;
 
@@ -40,6 +43,7 @@ public class ActiveSessionViewOrdersFragment extends BaseFragment implements Act
     }
 
     private void setUpUi() {
+        initBackButton(R.id.tv_header_title, getResources().getString(R.string.action_list_orders));
         rvOrders.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         mOrdersAdapter = new ActiveSessionOrdersAdapter(null, this);
         rvOrders.setAdapter(mOrdersAdapter);
@@ -93,7 +97,7 @@ public class ActiveSessionViewOrdersFragment extends BaseFragment implements Act
 
     }
 
-    @OnClick(R.id.im_session_view_orders_back)
+    @OnClick(R.id.im_header_back)
     public void onBack() {
         onBackPressed();
     }

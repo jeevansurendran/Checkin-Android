@@ -131,6 +131,7 @@
     <string name="session_presence_private">Private</string>
     <string name="session_presence_public">Public</string>
     <string name="action_invoice">Invoice</string>
+    <string name="action_payment_mode">Payment Mode</string>
     <string name="shop_invoice_title">Invoice</string>
     <string name="action_checkins">Checkins</string>
     <string name="action_discount">Discount</string>

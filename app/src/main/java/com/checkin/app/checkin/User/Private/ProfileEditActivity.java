@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.checkin.app.checkin.Auth.OtpVerificationDialog;
 import com.checkin.app.checkin.Data.Resource;
+import com.checkin.app.checkin.Misc.BaseActivity;
 import com.checkin.app.checkin.R;
 import com.checkin.app.checkin.User.UserModel;
 import com.checkin.app.checkin.Utility.Utils;
@@ -30,7 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ProfileEditActivity extends AppCompatActivity implements OtpVerificationDialog.AuthCallback {
+public class ProfileEditActivity extends BaseActivity implements OtpVerificationDialog.AuthCallback {
 
     private static final String TAG = ProfileEditActivity.class.getSimpleName();
     public static final String KEY_USER_DATA = "profileEdit.user_data";
@@ -61,13 +62,7 @@ public class ProfileEditActivity extends AppCompatActivity implements OtpVerific
         setContentView(R.layout.activity_user_profile_edit);
         ButterKnife.bind(this);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_back_grey);
-            actionBar.setElevation(10);
-        }
-
+        initBackButton(R.id.tv_header_title, "Edit Profile");
         getData();
 
         mAuth = FirebaseAuth.getInstance();

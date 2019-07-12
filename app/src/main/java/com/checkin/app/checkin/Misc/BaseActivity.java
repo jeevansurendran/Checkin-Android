@@ -3,7 +3,9 @@ package com.checkin.app.checkin.Misc;
 import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.checkin.app.checkin.Data.Resource.Status;
 
@@ -18,6 +20,7 @@ public class BaseActivity extends AppCompatActivity {
     private static final String TAG = BaseActivity.class.getSimpleName();
     private DataStatusFragment mFragment;
     private boolean isFragmentShown = false;
+    private TextView tvHeaderTitle;
 
     @IdRes
     private int vGroupId;
@@ -95,5 +98,10 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    protected void initBackButton(@IdRes int viewId, String title){
+        tvHeaderTitle = findViewById(viewId);
+        tvHeaderTitle.setText(title);
     }
 }

@@ -23,6 +23,48 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+           <!-- <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar_active_session_invoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:paddingStart="-7dp"
+                android:theme="@style/AppTheme">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    app:popupTheme="@style/PopupOverlay">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/im_header_back"
+                            android:layout_width="@dimen/width_small_icon"
+                            android:layout_height="@dimen/size_extra_small_button"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_back_white" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|start"
+                            android:layout_marginStart="@dimen/spacing_small"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arial_rounded_mt_bold"
+                            android:text="Chat with us"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_large" />
+
+                    </LinearLayout>
+
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>-->
+
+
             <LinearLayout
                 android:id="@+id/container_session_actions"
                 android:layout_width="match_parent"

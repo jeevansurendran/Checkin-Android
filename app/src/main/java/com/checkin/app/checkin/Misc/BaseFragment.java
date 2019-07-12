@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
@@ -16,6 +17,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     private Unbinder unbinder;
+    private TextView tvHeaderTitle;
 
     @Nullable
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -58,5 +60,12 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    protected void initBackButton(@IdRes int viewId, String title){
+        if (getView() == null)
+            return;
+        tvHeaderTitle = getView().findViewById(viewId);
+        tvHeaderTitle.setText(title);
     }
 }

@@ -21,10 +21,8 @@
 
             <ImageView
                 android:id="@+id/im_as_back"
-                android:layout_width="@dimen/size_normal_icon"
-                android:layout_height="@dimen/size_normal_icon"
-                android:contentDescription="@null"
-                android:padding="@dimen/spacing_extra_small"
+                android:layout_width="@dimen/size_extra_small_button"
+                android:layout_height="@dimen/size_extra_small_button"
                 android:src="@drawable/ic_back_grey" />
 
             <TextView
@@ -54,6 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:orientation="vertical"
+                    android:layout_marginTop="@dimen/spacing_extra_small"
                     app:layout_constraintBottom_toTopOf="@id/container_second"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

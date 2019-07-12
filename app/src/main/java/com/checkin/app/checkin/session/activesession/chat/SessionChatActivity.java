@@ -84,6 +84,7 @@ public class SessionChatActivity extends BaseActivity implements ActiveSessionCh
         setContentView(R.layout.activity_active_session_chat);
         ButterKnife.bind(this);
 
+//        initBackButton(R.id.tv_header_title, "Chat with Us");
         mViewModel = ViewModelProviders.of(this).get(ActiveSessionChatViewModel.class);
 
         setupUi();
@@ -286,11 +287,10 @@ public class SessionChatActivity extends BaseActivity implements ActiveSessionCh
         invalidateOptionsMenu();
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
+    /*@OnClick(R.id.im_header_back)
+    public void onBackClick() {
         onBackPressed();
-        return true;
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

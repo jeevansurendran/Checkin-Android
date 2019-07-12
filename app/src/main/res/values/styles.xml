@@ -485,5 +485,19 @@
         <item name="colorSwitchThumbNormal">@color/primary_red</item>
         <item name="android:colorForeground">@color/pinkish_grey</item>
     </style>
+    
+    <style name="AppBarWhiteWithBackButton" >
+        <item name="android:minHeight">@dimen/appbar_height</item>
+        <item name="android:elevation" tools:ignore="NewApi">@dimen/spacing_elevation_fix_extreme_tiny</item>
+        <item name="android:padding">@dimen/spacing_extra_small</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="AppBarRedWithBackButton" >
+        <item name="android:minHeight">@dimen/appbar_height</item>
+        <item name="android:elevation" tools:ignore="NewApi">@dimen/spacing_elevation_fix_extreme_tiny</item>
+        <item name="android:padding">@dimen/spacing_extra_small</item>
+        <item name="android:background">@color/primary_red</item>
+    </style>
 
 </resources>

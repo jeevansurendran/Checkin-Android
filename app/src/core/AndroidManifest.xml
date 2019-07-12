@@ -31,8 +31,7 @@
 
         <activity
             android:name=".User.Private.ProfileEditActivity"
-            android:label="Edit Profile"
-            android:theme="@style/AppThemeWhiteActionBar" />
+            android:label="Edit Profile" />
         <activity
             android:name=".Menu.ShopMenu.SessionMenuActivity"
             android:screenOrientation="portrait"
@@ -88,7 +87,6 @@
         <activity
             android:name=".session.activesession.chat.SessionChatActivity"
             android:label="Chat with Us"
-            android:theme="@style/SessionChatTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".session.activesession.ActiveSessionInvoiceActivity" />
         <activity
@@ -116,7 +114,7 @@
             android:theme="@style/AppThemeWhiteActionBar"/>
         <activity android:name=".Shop.Private.ShopPrivateActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".session.activesession.ActiveSessionPaymentOptionsActivity"
+        <activity android:name=".session.activesession.ActiveSessionPaymentOptionsFragment"
             android:label="Payment Mode"
             android:theme="@style/AppThemeWhiteActionBar" />
         <activity
