@@ -1,8 +1,9 @@
 package com.checkin.app.checkin.Utility
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.text.SpannableStringBuilder
-import android.text.TextPaint
+import android.graphics.Color
+import android.text.*
 import android.text.style.ClickableSpan
 import android.util.AttributeSet
 import android.view.View
@@ -11,6 +12,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.checkin.app.checkin.R
 import java.lang.StringBuilder
+import com.checkin.app.checkin.Utility.TextLineWrapper.makeTextViewResizable
+import com.checkin.app.checkin.Utility.TextLineWrapper.MySpannable
+import android.text.style.ForegroundColorSpan
+
 
 class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : TextView(context, attrs) {
     var originalText: CharSequence? = null
@@ -40,7 +45,6 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ExpandableTextView)
         this.trimLength = typedArray.getInt(R.styleable.ExpandableTextView_trimLength, DEFAULT_TRIM_LENGTH)
-        this.colorClickableText = typedArray.getColor(R.styleable.ExpandableTextView_colorClickableText, ContextCompat.getColor(context, R.color.accent))
         this.trimMode = typedArray.getInt(R.styleable.ExpandableTextView_selectedMode, TRIM_MODE_LENGTH)
         this.trimLines = typedArray.getInt(R.styleable.ExpandableTextView_trimLines, DEFAULT_TRIM_LINES)
         typedArray.recycle()
@@ -64,14 +68,20 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
         super.setText(displayableText, bufferType)
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun setText(text: CharSequence, type: BufferType) {
         originalText = text
         trimmedText = getTrimmedText(text)
-        fullText = StringBuilder(text).append(SHORTEN_SUFFIX).toString()
+
+        val shortenSuffix = SpannableString(SHORTEN_SUFFIX)
+        shortenSuffix.setSpan(ForegroundColorSpan(Color.GREEN), 0, SHORTEN_SUFFIX.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        fullText = SpannableStringBuilder(text).append(shortenSuffix).toString()
         bufferType = type
         setText()
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun getTrimmedText(text: CharSequence?): CharSequence? {
         if (text == null) return text
         val trimEndIndex = when (trimMode) {
@@ -79,7 +89,12 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
             TRIM_MODE_LINES -> if (lineEndIndex > ELLIPSIS.length) lineEndIndex - (ELLIPSIS.length + 1) else trimLength + 1
             else -> text.length
         }
-        return if (trimEndIndex < text.length) SpannableStringBuilder(text, 0, trimEndIndex).append(ELLIPSIS) else text
+
+        val shortenSuffix = SpannableString(ELLIPSIS)
+        shortenSuffix.setSpan(ForegroundColorSpan(Color.GREEN), 0, ELLIPSIS.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
+        return if (trimEndIndex < text.length) SpannableStringBuilder(text, 0, trimEndIndex).append(shortenSuffix) else text
     }
 
     fun setTrimLength(trimLength: Int) {
@@ -133,6 +148,7 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
             mListener?.onToggle(trimmed)
         }
 
+        @SuppressLint("ResourceAsColor")
         override fun updateDrawState(ds: TextPaint) {
             ds.color = colorClickableText
         }
