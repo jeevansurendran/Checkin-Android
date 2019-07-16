@@ -17,6 +17,8 @@ import com.checkin.app.checkin.Utility.TextLineWrapper.MySpannable
 import android.text.style.ForegroundColorSpan
 
 
+
+
 class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : TextView(context, attrs) {
     var originalText: CharSequence? = null
         private set
@@ -68,15 +70,15 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
         super.setText(displayableText, bufferType)
     }
 
-    @SuppressLint("ResourceAsColor")
+
     override fun setText(text: CharSequence, type: BufferType) {
         originalText = text
         trimmedText = getTrimmedText(text)
 
-        val shortenSuffix = SpannableString(SHORTEN_SUFFIX)
-        shortenSuffix.setSpan(ForegroundColorSpan(Color.GREEN), 0, SHORTEN_SUFFIX.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        val shortenSuffix = SpannableString (SHORTEN_SUFFIX)
+        shortenSuffix.setSpan(ForegroundColorSpan(Color.parseColor("#0295aa")), 0, SHORTEN_SUFFIX.length, 0)
 
-        fullText = SpannableStringBuilder(text).append(shortenSuffix).toString()
+        fullText = TextUtils.concat(originalText, shortenSuffix)
         bufferType = type
         setText()
     }
@@ -91,7 +93,7 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
         }
 
         val shortenSuffix = SpannableString(ELLIPSIS)
-        shortenSuffix.setSpan(ForegroundColorSpan(Color.GREEN), 0, ELLIPSIS.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        shortenSuffix.setSpan(ForegroundColorSpan(Color.parseColor("#0295aa")), 0, ELLIPSIS.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 
         return if (trimEndIndex < text.length) SpannableStringBuilder(text, 0, trimEndIndex).append(shortenSuffix) else text
