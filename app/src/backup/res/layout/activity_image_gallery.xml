@@ -25,8 +25,8 @@
 
         <ImageView
             android:id="@+id/iv_gallery_back"
-            android:layout_width="@dimen/size_normal_icon"
-            android:layout_height="@dimen/size_normal_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/spacing_small"
             android:contentDescription="@null"

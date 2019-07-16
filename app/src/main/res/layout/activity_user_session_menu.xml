@@ -20,8 +20,8 @@
 
             <ImageView
                 android:id="@+id/im_as_menu_back"
-                android:layout_width="@dimen/width_small_icon"
-                android:layout_height="@dimen/size_extra_small_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
                 android:layout_marginStart="@dimen/spacing_extra_small"
                 android:src="@drawable/ic_back_grey" />
