@@ -1,10 +1,14 @@
 package com.checkin.app.checkin.session.model;
 
+import com.checkin.app.checkin.Menu.UserMenu.Adapter.MenuBestSellerAdapter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.objectbox.annotation.Transient;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TrendingDishModel {
@@ -41,6 +45,11 @@ public class TrendingDishModel {
 
     @JsonProperty("image")
     private String image;
+
+    @JsonIgnore
+    @Transient
+    private MenuBestSellerAdapter.ViewHolder asBestsellerItemholder;
+
 
     public TrendingDishModel() {
     }
@@ -148,6 +157,15 @@ public class TrendingDishModel {
 
     public boolean isComplexItem() {
         return hasCustomizations() || typeNames.size() > 1;
+    }
+
+    @JsonIgnore
+    public void setActiveSessionBestsellerItemHolder(MenuBestSellerAdapter.ViewHolder holder) {
+        this.asBestsellerItemholder = holder;
+    }
+
+    public MenuBestSellerAdapter.ViewHolder getASBestsellerItemHolder() {
+        return asBestsellerItemholder;
     }
 
     public enum AVAILABLE_MEAL {

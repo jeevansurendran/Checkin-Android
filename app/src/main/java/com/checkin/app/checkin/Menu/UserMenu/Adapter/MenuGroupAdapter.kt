@@ -85,6 +85,10 @@ class MenuGroupAdapter(private var mGroupList: List<MenuGroupModel>?, private va
         notifyItemChanged(0)
     }
 
+    fun notifyBestsellerItem(){
+
+    }
+
     override fun useHeader(): Boolean = shouldShowHeader
 
     override fun useFooter(): Boolean = false

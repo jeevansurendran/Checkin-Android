@@ -26,8 +26,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.miguelcatalan.materialsearchview.utils.AnimationUtil
 import kotlinx.coroutines.launch
 
-class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionInterface {
-
+class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionInterface, ItemCustomizationFragment.ItemCustomizationInteraction {
     @BindView(R.id.rv_menu_groups)
     internal lateinit var rvGroupsList: RecyclerView
     @BindView(R.id.container_as_menu_current_category)
@@ -43,6 +42,7 @@ class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionIn
     private lateinit var mAdapter: MenuGroupAdapter
     private var mListener: MenuItemInteraction? = null
     private var mIsSessionActive = true
+    private var mBestsellerClicked = false
 
     private val isGroupExpanded: Boolean
         get() = mAdapter.isGroupExpanded
@@ -84,11 +84,14 @@ class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionIn
 
         mViewModel.currentItem.observe(this, Observer {
             it?.let { orderedItem ->
-                val holder = orderedItem.itemModel.asItemHolder
 
-                if (holder != null && holder.menuItem === orderedItem.itemModel) {
-                    holder.changeQuantity(mViewModel.getOrderedCount(orderedItem.itemModel) + orderedItem.changeCount)
-                }
+                    val holder = orderedItem.itemModel.asItemHolder
+
+                    if (holder != null && holder.menuItem === orderedItem.itemModel) {
+                        holder.changeQuantity(mViewModel.getOrderedCount(orderedItem.itemModel) + orderedItem.changeCount)
+                    }else{
+
+                    }
             }
         })
 
@@ -111,10 +114,25 @@ class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionIn
         rvGroupsList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
         mAdapter = MenuGroupAdapter(null, mListener, this, object : MenuBestSellerAdapter.SessionTrendingDishInteraction {
-            override fun onDishClick(itemModel: TrendingDishModel) {
+            override fun onDishClick(itemModel: TrendingDishModel): Boolean{
                 lifecycleScope.launch {
                     mViewModel.getMenuItemById(itemModel.pk)?.let { mListener?.onMenuItemAdded(it) }
                 }
+                return true
+            }
+
+            override fun onItemChanged(item: TrendingDishModel?, count: Int): Boolean {
+                 if (mListener != null) {
+                     lifecycleScope.launch {
+                         item?.pk?.let {
+                             mViewModel.getMenuItemById(it)?.let {
+                                 mListener?.onMenuItemChanged(it,count)
+                             }
+                         }
+                     }
+                      return true
+                } else
+                     return false
             }
         })
         mAdapter.setSessionActive(mIsSessionActive)
@@ -195,5 +213,13 @@ class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionIn
             fragment.mListener = listener
             return fragment
         }
+    }
+
+    override fun onCustomizationDone() {
+        mViewModel.orderItem()
+    }
+
+    override fun onCustomizationCancel() {
+        mViewModel.cancelItem()
     }
 }
