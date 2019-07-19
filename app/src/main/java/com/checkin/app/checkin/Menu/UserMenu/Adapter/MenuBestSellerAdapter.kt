@@ -34,7 +34,7 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
     interface SessionTrendingDishInteraction {
         fun onDishClick(itemModel: TrendingDishModel): Boolean
 
-        fun onItemChanged(item: TrendingDishModel?, count: Int): Boolean
+        fun onItemChanged(item: TrendingDishModel?, count: Int, position: Int): Boolean
     }
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -91,7 +91,7 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
                         displayQuantity(mCount)
                         return
                     }
-                    if (!mListener!!.onItemChanged(mItemModel, count)) {
+                    if (!mListener!!.onItemChanged(mItemModel, count, layoutPosition)) {
                         displayQuantity(0)
                         hideQuantitySelection()
                         return
@@ -107,7 +107,6 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
 
         internal fun bindData(itemModel: TrendingDishModel) {
             this.mItemModel = itemModel
-            this.mItemModel.setActiveSessionBestsellerItemHolder(this)
 
             if (itemModel.image.contains("static/menu/icons")) {
                 Utils.loadImageOrDefault(imDishGroupIcon, itemModel.image, 0)
@@ -120,6 +119,10 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
             }
             tvName.text = itemModel.name
             tvPrice.text = Utils.formatCurrencyAmount(itemView.context, itemModel.typeCosts[0])
+
+//            if(itemModel.count > 0)
+//                changeQuantity(itemModel.count)
+
         }
 
         internal fun hideQuantitySelection() {

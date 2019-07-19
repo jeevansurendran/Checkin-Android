@@ -27,6 +27,7 @@ import com.checkin.app.checkin.Menu.Model.MenuItemModel
 import com.checkin.app.checkin.Menu.UserMenu.Fragment.MenuItemsHolder
 import com.checkin.app.checkin.R
 import com.checkin.app.checkin.Utility.GlideApp
+import com.checkin.app.checkin.Utility.GridLayoutManagerWrapHeight
 import com.checkin.app.checkin.Utility.HeaderFooterRecyclerViewAdapter
 import com.checkin.app.checkin.Utility.Utils
 import com.checkin.app.checkin.session.model.TrendingDishModel
@@ -85,10 +86,6 @@ class MenuGroupAdapter(private var mGroupList: List<MenuGroupModel>?, private va
         notifyItemChanged(0)
     }
 
-    fun notifyBestsellerItem(){
-
-    }
-
     override fun useHeader(): Boolean = shouldShowHeader
 
     override fun useFooter(): Boolean = false
@@ -123,7 +120,7 @@ class MenuGroupAdapter(private var mGroupList: List<MenuGroupModel>?, private va
         init {
             ButterKnife.bind(this, itemView)
 
-            val gridLayoutManager = GridLayoutManager(view.context, 2, RecyclerView.VERTICAL, false)
+            val gridLayoutManager = GridLayoutManagerWrapHeight(view.context, 2)
             rvBestSeller.layoutManager = gridLayoutManager
             rvBestSeller.adapter = mAdapter
 

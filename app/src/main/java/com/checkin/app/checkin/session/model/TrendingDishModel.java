@@ -50,6 +50,8 @@ public class TrendingDishModel {
     @Transient
     private MenuBestSellerAdapter.ViewHolder asBestsellerItemholder;
 
+    private int count;
+
 
     public TrendingDishModel() {
     }
@@ -166,6 +168,14 @@ public class TrendingDishModel {
 
     public MenuBestSellerAdapter.ViewHolder getASBestsellerItemHolder() {
         return asBestsellerItemholder;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public enum AVAILABLE_MEAL {

@@ -1,6 +1,7 @@
 package com.checkin.app.checkin.Menu.UserMenu.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -84,14 +85,16 @@ class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionIn
 
         mViewModel.currentItem.observe(this, Observer {
             it?.let { orderedItem ->
+                Log.e("clickeddd", "Toppk " + orderedItem.itemModel.pk);
+                val holder = orderedItem.itemModel.asItemHolder
 
-                    val holder = orderedItem.itemModel.asItemHolder
+                if (holder != null && holder.menuItem === orderedItem.itemModel) {
+                    holder.changeQuantity(mViewModel.getOrderedCount(orderedItem.itemModel) + orderedItem.changeCount)
+                } else {
+                    Log.e("clickeddd", "pk" + orderedItem.itemModel.pk);
+//                    mViewModel.updateTrendingOrderCount(orderedItem)
 
-                    if (holder != null && holder.menuItem === orderedItem.itemModel) {
-                        holder.changeQuantity(mViewModel.getOrderedCount(orderedItem.itemModel) + orderedItem.changeCount)
-                    }else{
-
-                    }
+                }
             }
         })
 
@@ -114,25 +117,32 @@ class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionIn
         rvGroupsList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
         mAdapter = MenuGroupAdapter(null, mListener, this, object : MenuBestSellerAdapter.SessionTrendingDishInteraction {
-            override fun onDishClick(itemModel: TrendingDishModel): Boolean{
-                lifecycleScope.launch {
-                    mViewModel.getMenuItemById(itemModel.pk)?.let { mListener?.onMenuItemAdded(it) }
-                }
-                return true
+            override fun onDishClick(itemModel: TrendingDishModel): Boolean {
+                if (mListener != null) {
+                    lifecycleScope.launch {
+                        mViewModel.getMenuItemById(itemModel.pk)?.let {
+                            mListener?.onMenuItemAdded(it)
+                        }
+                    }
+                    return true
+                } else
+                    return false
+
+
             }
 
-            override fun onItemChanged(item: TrendingDishModel?, count: Int): Boolean {
-                 if (mListener != null) {
-                     lifecycleScope.launch {
-                         item?.pk?.let {
-                             mViewModel.getMenuItemById(it)?.let {
-                                 mListener?.onMenuItemChanged(it,count)
-                             }
-                         }
-                     }
-                      return true
+            override fun onItemChanged(item: TrendingDishModel?, count: Int, pos: Int): Boolean {
+                if (mListener != null) {
+                    lifecycleScope.launch {
+                        item?.pk?.let {
+                            mViewModel.getMenuItemById(it)?.let {
+                                mListener?.onMenuItemChanged(it, count)
+                            }
+                        }
+                    }
+                    return true
                 } else
-                     return false
+                    return false
             }
         })
         mAdapter.setSessionActive(mIsSessionActive)

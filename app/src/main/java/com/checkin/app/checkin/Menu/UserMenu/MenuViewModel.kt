@@ -37,6 +37,7 @@ class MenuViewModel(application: Application) : BaseViewModel(application) {
     private var mRunnable: Runnable? = null
     private var mSessionPk: Long? = null
     private var mShopPk: Long = 0
+    private lateinit var mSelectedBestsellerItem: MenuItemModel
 
     val menuGroups: LiveData<Resource<List<MenuGroupModel>>>
         get() = mMenuGroups
@@ -417,6 +418,7 @@ class MenuViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+
     fun getSelectedCategory() = mSelectedCategory
 
     fun getOriginalMenuGroups() = mOriginalMenuGroups
@@ -454,4 +456,33 @@ class MenuViewModel(application: Application) : BaseViewModel(application) {
             mMenuGroups.value = it
         }
     }
+
+
+    fun updateTrendingOrderCount(data: OrderedItemModel) {
+        val listResource = mRecommendedData.value
+        val mutableList = listResource?.data?.toMutableList()
+        if (listResource == null || listResource.data == null)
+            return
+        var pos = -1
+        var i = 0
+        val count = listResource.data.size
+        while (i < count) {
+            if (listResource.data[i].pk == data.pk) {
+                pos = i
+                break
+            }
+            i++
+        }
+        if (pos > -1) {
+            val trendingModel = listResource.data[pos]
+            trendingModel.count = data.changeCount
+            mutableList?.removeAt(pos)
+            mutableList?.add(pos, trendingModel)
+//            listResource.data.removeAt(pos)
+//            listResource.data.add(pos, trendingModel)
+        }
+        mRecommendedData.setValue(Resource.cloneResource(listResource, mutableList))
+    }
+
+
 }
