@@ -1,7 +1,6 @@
 package com.checkin.app.checkin.Menu.UserMenu.Fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -44,6 +43,7 @@ class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionIn
     private var mListener: MenuItemInteraction? = null
     private var mIsSessionActive = true
     private var mBestsellerClicked = false
+    private var bestsellerItemPos: Int = -1
 
     private val isGroupExpanded: Boolean
         get() = mAdapter.isGroupExpanded
@@ -85,14 +85,14 @@ class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionIn
 
         mViewModel.currentItem.observe(this, Observer {
             it?.let { orderedItem ->
-                Log.e("clickeddd", "Toppk " + orderedItem.itemModel.pk);
                 val holder = orderedItem.itemModel.asItemHolder
 
                 if (holder != null && holder.menuItem === orderedItem.itemModel) {
                     holder.changeQuantity(mViewModel.getOrderedCount(orderedItem.itemModel) + orderedItem.changeCount)
                 } else {
-                    Log.e("clickeddd", "pk" + orderedItem.itemModel.pk);
-//                    mViewModel.updateTrendingOrderCount(orderedItem)
+//                    var mBestsellerAdapter: MenuBestSellerAdapter
+//                    mBestsellerAdapter = MenuBestSellerAdapter(null)
+//                    mBestsellerAdapter.notifyItemCount(bestsellerItemPos, (mViewModel.getOrderedCount(orderedItem.itemModel) + orderedItem.changeCount))
 
                 }
             }
@@ -131,12 +131,13 @@ class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionIn
 
             }
 
-            override fun onItemChanged(item: TrendingDishModel?, count: Int, pos: Int): Boolean {
+            override fun onItemChanged(item: TrendingDishModel?, count: Int, position: Int): Boolean {
                 if (mListener != null) {
                     lifecycleScope.launch {
                         item?.pk?.let {
                             mViewModel.getMenuItemById(it)?.let {
                                 mListener?.onMenuItemChanged(it, count)
+                                bestsellerItemPos = position
                             }
                         }
                     }

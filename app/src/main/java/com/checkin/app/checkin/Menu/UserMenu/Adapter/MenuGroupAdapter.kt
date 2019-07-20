@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -110,6 +111,8 @@ class MenuGroupAdapter(private var mGroupList: List<MenuGroupModel>?, private va
     override fun getBasicItemType(position: Int) = R.layout.item_as_menu_group_collapsed
 
     internal inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        @BindView(R.id.container_bestseller)
+        internal lateinit var containerBestseller: ViewGroup
         @BindView(R.id.shimmer_as_menu_bestseller)
         internal lateinit var shimmerLayout: ShimmerFrameLayout
         @BindView(R.id.rv_menu_bestseller)
@@ -120,9 +123,21 @@ class MenuGroupAdapter(private var mGroupList: List<MenuGroupModel>?, private va
         init {
             ButterKnife.bind(this, itemView)
 
-            val gridLayoutManager = GridLayoutManagerWrapHeight(view.context, 2)
+//            val layoutParams:  ViewGroup.LayoutParams = containerBestseller.layoutParams
+//            layoutParams.height = (2* R.dimen.height_menu_group_bestseller)
+//            containerBestseller.layoutParams = layoutParams;
+
+//            ViewGroup.LayoutParams layoutParams = containerBestseller.getLayoutParams()
+//            layoutParams.width = newWidth;
+//            containerBestseller.setLayoutParams(layoutParams);
+
+//            containerBestseller.setLayoutParams(ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, R.dimen.height_menu_group_bestseller));
+//            containerBestseller.requestLayout()
+
+            val gridLayoutManager = GridLayoutManager(view.context, 2)
             rvBestSeller.layoutManager = gridLayoutManager
             rvBestSeller.adapter = mAdapter
+
 
             shimmerLayout.visibility = View.VISIBLE
             shimmerLayout.startShimmer()

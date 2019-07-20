@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.checkin.app.checkin.Menu.Model.MenuItemModel
 import com.checkin.app.checkin.R
 import com.checkin.app.checkin.Utility.Utils
 import com.checkin.app.checkin.session.model.TrendingDishModel
@@ -17,15 +18,22 @@ import com.checkin.app.checkin.Utility.DebouncedOnClickListener
 
 class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteraction?) : RecyclerView.Adapter<MenuBestSellerAdapter.ViewHolder>() {
     private var mItems: List<TrendingDishModel>? = null
+    private lateinit var mHolder: ViewHolder
 
     fun setData(data: List<TrendingDishModel>) {
         this.mItems = data
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = LayoutInflater.from(parent.context).inflate(viewType, parent, false).run { ViewHolder(this) }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        LayoutInflater.from(parent.context).inflate(viewType, parent, false).run {
+            return ViewHolder(this)
+        }
+    }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bindData(mItems!![position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindData(mItems!![position])
+    }
 
     override fun getItemCount(): Int = mItems?.size ?: 0
 
@@ -35,7 +43,16 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
         fun onDishClick(itemModel: TrendingDishModel): Boolean
 
         fun onItemChanged(item: TrendingDishModel?, count: Int, position: Int): Boolean
+
     }
+   /* fun notifyItemCount(pos: Int, count: Int){
+        notifyItemCount(pos, count, mHolder)
+    }
+
+    fun notifyItemCount(pos: Int, count: Int, holder: ViewHolder){
+        holder.changeQuantity(count)
+        notifyItemChanged(pos)
+    }*/
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @BindView(R.id.im_menu_dish_group_icon)
@@ -62,10 +79,6 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
 
         init {
             ButterKnife.bind(this, itemView)
-
-//            itemView.setOnClickListener(DebouncedOnClickListener {
-//                mListener?.onDishClick(mItemModel)
-//            })
 
             btnItemAdd.setOnClickListener(DebouncedOnClickListener {
                 if (mListener != null) {
@@ -120,8 +133,7 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
             tvName.text = itemModel.name
             tvPrice.text = Utils.formatCurrencyAmount(itemView.context, itemModel.typeCosts[0])
 
-//            if(itemModel.count > 0)
-//                changeQuantity(itemModel.count)
+            changeQuantity(itemModel.count)
 
         }
 
@@ -140,6 +152,7 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
         fun changeQuantity(count: Int) {
             mCount = count
             if (count <= 0) hideQuantitySelection()
+            else showQuantitySelection(count)
         }
 
         private fun increaseQuantity() {
@@ -160,6 +173,7 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
 
         private fun displayQuantity(number: Int) {
             tvQuantityNumber.text = number.toString()
+            mItemModel.count = number
         }
 
         private fun disallowDecreaseCount() {

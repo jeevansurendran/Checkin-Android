@@ -99,7 +99,8 @@
 
     <dimen name="spacing_between_group_icon_name">40dp</dimen>
     <dimen name="height_as_menu_group_collapsed">60dp</dimen>
-    <dimen name="width_menu_add_quantity">84dp</dimen>
+    <dimen name="width_menu_add_quantity">70dp</dimen>
+    <dimen name="height_menu_add_quantity">28dp</dimen>
 
     <dimen name="width_filter_group_name">100dp</dimen>
     <dimen name="container_filter">310dp</dimen>
