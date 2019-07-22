@@ -92,7 +92,9 @@ class MenuGroupsFragment : BaseFragment(), MenuGroupAdapter.OnGroupInteractionIn
                 } else {
 //                    var mBestsellerAdapter: MenuBestSellerAdapter
 //                    mBestsellerAdapter = MenuBestSellerAdapter(null)
-//                    mBestsellerAdapter.notifyItemCount(bestsellerItemPos, (mViewModel.getOrderedCount(orderedItem.itemModel) + orderedItem.changeCount))
+//                    mBestsellerAdapter.notifyItemCount(bestsellerItemPos, orderedItem)
+
+                    mViewModel.updateTrendingOrderCount(orderedItem)
 
                 }
             }

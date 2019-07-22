@@ -14,6 +14,7 @@ import androidx.annotation.ColorRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.widget.ImageViewCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -83,8 +84,27 @@ class MenuGroupAdapter(private var mGroupList: List<MenuGroupModel>?, private va
     }
 
     fun setBestSellerData(data: List<TrendingDishModel>) {
-        this.mBestsellerItems = data
-        notifyItemChanged(0)
+//        this.mBestsellerItems = data
+//        notifyItemChanged(0)
+
+        if (mBestsellerItems != null) {
+            val postDiffCallback = PostDiffCallback(mBestsellerItems!!, data)
+            val diffResult = DiffUtil.calculateDiff(postDiffCallback)
+
+            var mItems: MutableList<TrendingDishModel> = mutableListOf<TrendingDishModel>()
+
+            mItems!!.clear()
+            mItems!!.addAll(data)
+            diffResult.dispatchUpdatesTo(this)
+        }else{
+            // first initialization
+            mBestsellerItems = data
+//            notifyDataSetChanged()
+        }
+
+
+
+
     }
 
     override fun useHeader(): Boolean = shouldShowHeader
@@ -122,17 +142,6 @@ class MenuGroupAdapter(private var mGroupList: List<MenuGroupModel>?, private va
 
         init {
             ButterKnife.bind(this, itemView)
-
-//            val layoutParams:  ViewGroup.LayoutParams = containerBestseller.layoutParams
-//            layoutParams.height = (2* R.dimen.height_menu_group_bestseller)
-//            containerBestseller.layoutParams = layoutParams;
-
-//            ViewGroup.LayoutParams layoutParams = containerBestseller.getLayoutParams()
-//            layoutParams.width = newWidth;
-//            containerBestseller.setLayoutParams(layoutParams);
-
-//            containerBestseller.setLayoutParams(ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, R.dimen.height_menu_group_bestseller));
-//            containerBestseller.requestLayout()
 
             val gridLayoutManager = GridLayoutManager(view.context, 2)
             rvBestSeller.layoutManager = gridLayoutManager
@@ -362,5 +371,20 @@ class MenuGroupAdapter(private var mGroupList: List<MenuGroupModel>?, private va
 
         private val STATE_COLLAPSED = 0
         private val STATE_EXPANDED = 1
+    }
+
+    internal inner class PostDiffCallback(private val oldPosts: List<TrendingDishModel>, private val newPosts: List<TrendingDishModel>) : DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int = oldPosts.size
+
+        override fun getNewListSize(): Int = newPosts.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldPosts[oldItemPosition].pk == newPosts[newItemPosition].pk
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldPosts[oldItemPosition].equals(newPosts[newItemPosition])
+        }
     }
 }

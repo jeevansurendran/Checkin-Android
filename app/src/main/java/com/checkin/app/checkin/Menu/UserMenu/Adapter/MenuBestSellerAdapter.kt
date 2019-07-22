@@ -7,22 +7,40 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.checkin.app.checkin.Menu.Model.MenuItemModel
+import com.checkin.app.checkin.Menu.Model.OrderedItemModel
 import com.checkin.app.checkin.R
 import com.checkin.app.checkin.Utility.Utils
 import com.checkin.app.checkin.session.model.TrendingDishModel
 import com.checkin.app.checkin.Utility.DebouncedOnClickListener
+import java.util.ArrayList
 
 class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteraction?) : RecyclerView.Adapter<MenuBestSellerAdapter.ViewHolder>() {
-    private var mItems: List<TrendingDishModel>? = null
+    private var mItems: List<TrendingDishModel>? = ArrayList()
     private lateinit var mHolder: ViewHolder
 
-    fun setData(data: List<TrendingDishModel>) {
-        this.mItems = data
-        notifyDataSetChanged()
+    fun setData(newData: List<TrendingDishModel>) {
+//        this.mItems = data
+//        notifyDataSetChanged()
+        if (mItems != null) {
+            val postDiffCallback = PostDiffCallback(mItems!!, newData)
+            val diffResult = DiffUtil.calculateDiff(postDiffCallback)
+
+            var mItems: MutableList<TrendingDishModel> = mutableListOf<TrendingDishModel>()
+
+            mItems!!.clear()
+            mItems!!.addAll(newData)
+            diffResult.dispatchUpdatesTo(this)
+        }else{
+            // first initialization
+            mItems = newData
+            notifyDataSetChanged()
+        }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,14 +63,11 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
         fun onItemChanged(item: TrendingDishModel?, count: Int, position: Int): Boolean
 
     }
-   /* fun notifyItemCount(pos: Int, count: Int){
-        notifyItemCount(pos, count, mHolder)
-    }
 
-    fun notifyItemCount(pos: Int, count: Int, holder: ViewHolder){
-        holder.changeQuantity(count)
+    fun notifyItemCount(pos: Int, orderedItem: OrderedItemModel){
+//        updateTrendingOrderCount(orderedItem)
         notifyItemChanged(pos)
-    }*/
+    }
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @BindView(R.id.im_menu_dish_group_icon)
@@ -179,7 +194,23 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
         private fun disallowDecreaseCount() {
             Utils.toast(itemView.context, "Not allowed to change item count from here - use cart.")
         }
-
-
     }
+
+
+    internal inner class PostDiffCallback(private val oldPosts: List<TrendingDishModel>, private val newPosts: List<TrendingDishModel>) : DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int = oldPosts.size
+
+        override fun getNewListSize(): Int = newPosts.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldPosts[oldItemPosition].pk == newPosts[newItemPosition].pk
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldPosts[oldItemPosition].equals(newPosts[newItemPosition])
+        }
+    }
+
+
 }

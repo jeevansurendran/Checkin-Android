@@ -477,9 +477,7 @@ class MenuViewModel(application: Application) : BaseViewModel(application) {
             trendingModel.count = data.changeCount
             mutableList?.removeAt(pos)
             mutableList?.add(pos, trendingModel)
-//            listResource.data.removeAt(pos)
-//            listResource.data.add(pos, trendingModel)
         }
-//        mRecommendedData.setValue(Resource.cloneResource(listResource, mutableList))
+        mRecommendedData.setValue(Resource.cloneResource(listResource, mutableList))
     }
 }
