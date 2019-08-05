@@ -19,7 +19,7 @@ import com.checkin.app.checkin.Utility.DebouncedOnClickListener
 import java.util.ArrayList
 
 class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteraction?) : RecyclerView.Adapter<MenuBestSellerAdapter.ViewHolder>() {
-    private var mItems: List<TrendingDishModel>? = ArrayList()
+    private var mItems: List<TrendingDishModel>? = null
     private lateinit var mHolder: ViewHolder
 
     fun setData(newData: List<TrendingDishModel>) {
@@ -37,7 +37,7 @@ class MenuBestSellerAdapter(private val mListener: SessionTrendingDishInteractio
         }else{
             // first initialization
             mItems = newData
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
         }
 
 

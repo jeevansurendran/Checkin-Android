@@ -99,12 +99,8 @@ class MenuGroupAdapter(private var mGroupList: List<MenuGroupModel>?, private va
         }else{
             // first initialization
             mBestsellerItems = data
-//            notifyDataSetChanged()
+            notifyItemChanged(0)
         }
-
-
-
-
     }
 
     override fun useHeader(): Boolean = shouldShowHeader

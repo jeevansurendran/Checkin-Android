@@ -466,7 +466,7 @@ class MenuViewModel(application: Application) : BaseViewModel(application) {
         var i = 0
         val count = listResource.data.size
         while (i < count) {
-            if (listResource.data[i].pk == data.pk) {
+            if (listResource.data[i].pk == data.item) {
                 pos = i
                 break
             }
@@ -474,7 +474,7 @@ class MenuViewModel(application: Application) : BaseViewModel(application) {
         }
         if (pos > -1) {
             val trendingModel = listResource.data[pos]
-            trendingModel.count = data.changeCount
+            trendingModel.count = data.quantity
             mutableList?.removeAt(pos)
             mutableList?.add(pos, trendingModel)
         }
