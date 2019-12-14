@@ -26,6 +26,7 @@ import com.checkin.app.checkin.Shop.Private.MemberModel
 import com.checkin.app.checkin.Shop.RestaurantModel
 import com.checkin.app.checkin.Shop.ShopJoin.ShopJoinModel
 import com.checkin.app.checkin.User.ShopCustomerModel
+import com.checkin.app.checkin.User.UserLocationModel
 import com.checkin.app.checkin.User.UserModel
 import com.checkin.app.checkin.User.bills.NewReviewModel
 import com.checkin.app.checkin.User.bills.UserTransactionBriefModel
@@ -59,6 +60,9 @@ interface WebApiService {
     @Multipart
     @POST("users/self/picture/")
     fun postUserProfilePic(@Part pic: MultipartBody.Part): Call<GenericDetailModel>
+
+    @POST("/users/self/locations/")
+    fun postUserLocation(@Body location: UserLocationModel): Call<UserLocationModel>
     // endregion
 
     // region SESSION
