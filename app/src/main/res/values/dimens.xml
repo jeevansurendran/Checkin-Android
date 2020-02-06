@@ -257,4 +257,10 @@
     <dimen name="pager_radius_small">4dp</dimen>
     <dimen name="size_extra_tiny_icon">8dp</dimen>
 	<dimen name="tg_size_normal">90dp</dimen>
+	<dimen name="button_add">65dp</dimen>
+	<dimen name="payment_image_width">36dp</dimen>
+	<dimen name="payment_image_height">24dp</dimen>
+	<dimen name="payment_netbanking_image">44dp</dimen>
+	<dimen name="payment_button_pay_width">200dp</dimen>
+	<dimen name="payment_button_pay_height">30dp</dimen>
 </resources>

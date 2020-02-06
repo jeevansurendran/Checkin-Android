@@ -29,10 +29,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-
 import com.checkin.app.checkin.Auth.AuthPreferences;
 import com.checkin.app.checkin.R;
 import com.checkin.app.checkin.data.notifications.ActiveSessionNotificationService;
@@ -56,6 +52,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import kotlin.Pair;
 
 /**
