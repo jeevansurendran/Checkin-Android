@@ -31,6 +31,9 @@
 		<action
 			android:id="@+id/action_paymentCardFragment_to_paymentSubmitFragment"
 			app:destination="@id/paymentSubmitFragment" />
+		<argument
+			android:name="amount"
+			app:argType="float" />
 	</dialog>
 	<dialog
 		android:id="@+id/paymentUpiFragment"
@@ -40,6 +43,9 @@
 		<action
 			android:id="@+id/action_paymentUpiFragment_to_paymentSubmitFragment"
 			app:destination="@id/paymentSubmitFragment" />
+		<argument
+			android:name="amount"
+			app:argType="float" />
 	</dialog>
 	<fragment
 		android:id="@+id/paymentSubmitFragment"

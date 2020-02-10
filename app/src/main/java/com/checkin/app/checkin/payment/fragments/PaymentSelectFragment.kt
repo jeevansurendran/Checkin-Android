@@ -1,14 +1,17 @@
 package com.checkin.app.checkin.payment.fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.checkin.app.checkin.R
 import com.checkin.app.checkin.misc.fragments.BaseFragment
+import com.checkin.app.checkin.payment.activities.PaymentActivity
 import com.checkin.app.checkin.payment.holders.*
 import com.checkin.app.checkin.payment.model.PaymentCardModel
 import com.checkin.app.checkin.payment.model.PaymentNetBankingModel
@@ -30,6 +33,12 @@ class PaymentSelectFragment : BaseFragment() {
         val amount = args.amount
 
         var selectedItem: Int = 1
+
+        val callback = activity?.onBackPressedDispatcher?.addCallback {
+            val returnIntent = Intent()
+            activity?.setResult(PaymentActivity.PAYMENT_CANCELLED, returnIntent)
+            activity?.finish()
+        }
 
         val cards = arrayOf(
                 PaymentCardModel(
@@ -163,7 +172,7 @@ class PaymentSelectFragment : BaseFragment() {
             paymentAddCard {
                 id("add card")
                 addListener { _ ->
-                    val action = PaymentSelectFragmentDirections.actionPaymentSelectFragmentToPaymentCardFragment()
+                    val action = PaymentSelectFragmentDirections.actionPaymentSelectFragmentToPaymentCardFragment(amount)
                     findNavController().navigate(action)
                 }
             }
@@ -244,7 +253,7 @@ class PaymentSelectFragment : BaseFragment() {
                 id("Add UPI")
                 content("ADD UPI ID")
                 addListener { _ ->
-                    val action = PaymentSelectFragmentDirections.actionPaymentSelectFragmentToPaymentUpiFragment()
+                    val action = PaymentSelectFragmentDirections.actionPaymentSelectFragmentToPaymentUpiFragment(amount)
                     findNavController().navigate(action)
                 }
             }
@@ -279,7 +288,7 @@ class PaymentSelectFragment : BaseFragment() {
                         }
                         R.id.im_payment_netbanking_citi -> {
                             val modelNetBanking = PaymentNetBankingModel(
-                                    "jvns67@gmail.com",
+                                    "jvns67@gmailK.com",
                                     "+918073298546",
                                     "SBIN") //TODO make it HDFC but first find a logo
                             val action = PaymentSelectFragmentDirections.actionPaymentSelectFragmentToPaymentSubmitFragment(

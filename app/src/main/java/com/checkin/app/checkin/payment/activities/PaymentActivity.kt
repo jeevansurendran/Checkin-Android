@@ -43,12 +43,6 @@ class PaymentActivity : BaseActivity() {
         findNavController(R.id.nav_host_fragment).setGraph(R.navigation.nav_graph, bundle)
     }
 
-    override fun onBackPressed() {
-        val returnIntent = Intent()
-        setResult(PAYMENT_CANCELLED, returnIntent)
-        finish()
-    }
-
     companion object {
         const val PAYMENT_SUCESSFULL = 1
         const val PAYMENT_AMOUNT_ZERO = 2
